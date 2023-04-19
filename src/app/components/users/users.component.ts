@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { NgForm } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-users',
@@ -23,37 +24,13 @@ export class UsersComponent implements OnInit {
   showUserForm: boolean = false;
   @ViewChild('userForm') form: any;
 
-  constructor() {}
+  constructor(private _userService: UserService) {}
 
   ngOnInit() {
-    this.users = [
-      {
-        firstName: 'Arkadeep',
-        lastName: 'Prasad',
-        email: 'arkadeep180@gmail.com',
-        isActive: false,
-        registered: new Date('02/01/2023 08:00:00'),
-        hide: true,
-      },
-      {
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john@gmail.com',
-        isActive: true,
-        registered: new Date('01/30/2023 11:15:00'),
-        hide: true,
-      },
-      {
-        firstName: 'Sam',
-        lastName: 'Davids',
-        email: 'sam@gmail.com',
-        isActive: true,
-        registered: new Date('02/20/2022 11:40:14'),
-        hide: true,
-      },
-    ];
-
-    this.loaded = true;
+    this._userService.getUsers().subscribe((users) => {
+      this.users = users;
+      this.loaded = true;
+    });
   }
 
   toogleHide(user: User) {
@@ -67,7 +44,7 @@ export class UsersComponent implements OnInit {
       data.value.registered = new Date();
       data.value.hide = false;
 
-      this.users.unshift(data.value);
+      this._userService.addUser(data.value);
 
       this.form.reset();
     } else {
