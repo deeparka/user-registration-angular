@@ -1,5 +1,25 @@
-<nav class="navbar navbar-dark bg-primary mb-4">
+<nav class="navbar navbar-expand navbar-dark bg-primary mb-4">
   <div class="container">
-    <a href="#" class="navbar-link">Angular App</a>
+    <a routerLink="/" class="navbar-brand">Angular App</a>
+    <div>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a
+            routerLink="/users"
+            class="nav-link"
+            [routerLinkActive]="['active']"
+            >Users</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            routerLink="/posts"
+            class="nav-link"
+            [routerLinkActive]="['active']"
+            >Posts</a
+          >
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
